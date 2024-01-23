@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5762ca67af99304daf4f2d59d1b4eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 4.5
   jumpPower: 20
 --- !u!70 &726731708
 CapsuleCollider2D:
