@@ -6,7 +6,6 @@ public class Move : MonoBehaviour
 {
     public float maxSpeed;
     public float jumpPower;
-    private bool isJumping = false;
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator anime;
@@ -42,7 +41,6 @@ public class Move : MonoBehaviour
                 {
                     Debug.Log(rayHit.collider.name);
                     anime.SetBool("IsJump", false);
-                    isJumping = false;
                 }
                 
             }
@@ -52,11 +50,10 @@ public class Move : MonoBehaviour
     private void Update()
     {
         //Jump By Button Control
-        if (Input.GetButton("Jump") && !anime.GetBool("IsJump") && !isJumping)
+        if (Input.GetButton("Jump") && !anime.GetBool("IsJump"))
         {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             anime.SetBool("IsJump", true);
-            isJumping = true;
         }
 
         //Stop Speed
@@ -68,7 +65,7 @@ public class Move : MonoBehaviour
             spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
 
         //Animation Transition
-        if (Mathf.Abs(rigid.velocity.x) < 0.3 && Mathf.Abs(rigid.velocity.y) < 0.1 && !isJumping)
+        if (Mathf.Abs(rigid.velocity.x) < 0.3 && Mathf.Abs(rigid.velocity.y) < 0.1)
             anime.SetBool("IsWalk", false);
         else
             anime.SetBool("IsWalk", true);
