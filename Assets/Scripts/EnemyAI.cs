@@ -30,22 +30,18 @@ public class EnemyMove : MonoBehaviour
         Vector2 frontVec = new Vector2(rigid.position.x + NextMove * 0.5f, rigid.position.y);
         Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
         RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Platform"));
-        if (rayHit.collider == null)
+        
+        if (rayHit.collider == null) //낭떠러지를 만났을 때(앞에 Platform 오브젝트가 없을때)
         {
-            NextMove = NextMove * -1;
-            CancelInvoke();
-            Invoke("Think", NextThinkTime);
+            Turn();
         }
-
     }
 
-    //재귀 함수
+    //재귀 함수(Recursive)
     void Think()
     {
         //Set Next Active
         NextMove = Random.Range(-1, 2);
-
-        Invoke("Think", NextThinkTime);
 
         //Sprite Animation
         anime.SetInteger("WalkSpeed", NextMove);
@@ -53,5 +49,17 @@ public class EnemyMove : MonoBehaviour
         //Flip Sprite
         if (NextMove != 0)
             sprite.flipX = NextMove == 1;
+
+        //재귀함수 : 맨 마지막에 작성
+        Invoke("Think", NextThinkTime);
+    }
+
+    void Turn()
+    {
+        NextMove = NextMove * -1; //낭떠러지에서 반대쪽으로 이동
+        sprite.flipX = NextMove == 1; // 오른쪽(1)으로 이동중이라면 flipX 활성화
+
+        CancelInvoke();
+        Invoke("Think", NextThinkTime);
     }
 }
