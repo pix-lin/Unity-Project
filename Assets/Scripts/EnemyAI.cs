@@ -33,7 +33,12 @@ public class EnemyMove : MonoBehaviour
         
         if (rayHit.collider == null) //낭떠러지를 만났을 때(앞에 Platform 오브젝트가 없을때)
         {
-            Turn();
+            NextMove = NextMove * -1;
+            sprite.flipX = NextMove == 1;
+
+            CancelInvoke();
+            Invoke("Think", NextThinkTime);
+
         }
     }
 
@@ -51,15 +56,6 @@ public class EnemyMove : MonoBehaviour
             sprite.flipX = NextMove == 1;
 
         //재귀함수 : 맨 마지막에 작성
-        Invoke("Think", NextThinkTime);
-    }
-
-    void Turn()
-    {
-        NextMove = NextMove * -1; //낭떠러지에서 반대쪽으로 이동
-        sprite.flipX = NextMove == 1; // 오른쪽(1)으로 이동중이라면 flipX 활성화
-
-        CancelInvoke();
         Invoke("Think", NextThinkTime);
     }
 }
