@@ -2054,7 +2054,7 @@ Transform:
   - {fileID: 2102182413}
   - {fileID: 1312716588}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &356811405
 GameObject:
@@ -2099,8 +2099,8 @@ MonoBehaviour:
   - {fileID: 552144431}
   - {fileID: 1973131905}
   - {fileID: 49899792}
-  UIPoint: {fileID: 0}
-  UIStage: {fileID: 0}
+  UIPoint: {fileID: 973656422}
+  UIStage: {fileID: 602259834}
 --- !u!4 &356811407
 Transform:
   m_ObjectHideFlags: 0
@@ -2511,7 +2511,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &552144429
 GameObject:
@@ -3116,9 +3116,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1570895212}
-  - {fileID: 764077386}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &726731704
 Rigidbody2D:
@@ -3394,11 +3393,11 @@ RectTransform:
   - {fileID: 552144430}
   - {fileID: 1973131904}
   - {fileID: 49899791}
-  - {fileID: 602259833}
   - {fileID: 973656421}
+  - {fileID: 602259833}
   - {fileID: 683612666}
-  m_Father: {fileID: 726731703}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4500,7 +4499,7 @@ Transform:
   - {fileID: 70261205}
   - {fileID: 1473923974}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1260207851
 GameObject:
@@ -6780,7 +6779,7 @@ Transform:
   - {fileID: 752274101}
   - {fileID: 252726744}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1913282933
 GameObject:

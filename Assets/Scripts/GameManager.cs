@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,8 +15,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] Stages;
 
     public Image[] UIhealth;
-    public Text UIPoint;
-    public Text UIStage;
+    public TextMeshProUGUI UIPoint;
+    public TextMeshProUGUI UIStage;
 
     public void NextStage()
     {
