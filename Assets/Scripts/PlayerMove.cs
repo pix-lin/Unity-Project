@@ -72,4 +72,54 @@ public class Move : MonoBehaviour
         else
             anime.SetBool("IsWalk", true);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            //Attack
+            if (rigid.velocity.y < 0 && transform.position.y > collision.transform.position.y)
+                OnAttack(collision.transform);
+
+            //Damaged
+            else
+                OnPlayerDamaged(collision.transform.position);
+        }
+            
+    }
+
+    void OnAttack(Transform enemy)
+    {
+        //Point
+
+        //Reaction Force
+        rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+
+        //Enemy Die
+        EnemyMove enemyMove = enemy.GetComponent<EnemyMove>();
+        enemyMove.OnMonsterDamaged();
+    }
+
+    void OnPlayerDamaged(Vector2 targetPossition)
+    {
+        //Change Layer (Imortal Active)
+        gameObject.layer = 12;
+
+        //View Alpha
+        spriteRenderer.material.color = new Color(1, 1, 1, 0.4f);
+
+        //Reaction Force
+        int dirc = transform.position.x - targetPossition.x > 0 ? 1 : -1;
+        rigid.AddForce(new Vector2(dirc, 1) * 7, ForceMode2D.Impulse);
+
+        //Animation
+        anime.SetTrigger("Damaged");
+        Invoke("OffDamaged", 2);
+    }
+
+    void OffDamaged()
+    {
+        gameObject.layer = 11;
+        spriteRenderer.material.color = new Color(1, 1, 1, 1);
+    }
 }

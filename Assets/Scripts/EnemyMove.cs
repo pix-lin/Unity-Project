@@ -8,6 +8,7 @@ public class EnemyMove : MonoBehaviour
     Rigidbody2D rigid;
     Animator anime;
     SpriteRenderer sprite;
+    CapsuleCollider2D capsuleCollider;
     public int NextMove;
     float NextThinkTime;
 
@@ -16,6 +17,7 @@ public class EnemyMove : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         anime = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
         NextThinkTime = Random.Range(2.0f, 5.0f);
 
         Invoke("Think", NextThinkTime);
@@ -40,6 +42,26 @@ public class EnemyMove : MonoBehaviour
             Invoke("Think", NextThinkTime);
 
         }
+    }
+
+    //Monster Die
+    public void OnMonsterDamaged()
+    {
+        //Sprite Alpha
+        sprite.color = new Color(1, 1, 1, 0.4f);
+        //Sprite Flip Y
+        sprite.flipY = true;
+        //Collider Disable
+        capsuleCollider.enabled = false;
+        //Die Effect Jump
+        rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+        //Destroy
+        Invoke("Deavtive", 5);
+    }
+
+    void Deavtive()
+    {
+        gameObject.SetActive(false);
     }
 
     //Àç±Í ÇÔ¼ö(Recursive)
