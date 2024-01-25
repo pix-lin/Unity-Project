@@ -9,10 +9,25 @@ public class GameManager : MonoBehaviour
     public int stageIndex;
     public int health;
     public PlayerMove player;
+    public GameObject[] Stages;
 
     public void NextStage()
     {
-        stageIndex++;
+        //Change Stage
+        if (stageIndex < Stages.Length - 1)
+        {
+            Stages[stageIndex].SetActive(false);
+            stageIndex++;
+            Stages[stageIndex].SetActive(true);
+            PlayerReposition();
+        }
+        //Game Clear
+        else
+        {
+            //Player Control Lock
+            Time.timeScale = 0;
+        }
+        
         totalPoint += stagePoint;
         stagePoint = 0;
     }
@@ -42,11 +57,13 @@ public class GameManager : MonoBehaviour
 
             //Player Reposition
             if (health > 1)
-            {
-                collision.attachedRigidbody.velocity = Vector2.zero;
-                collision.transform.position = new Vector3(-8, 1, -1);
-            }
-            
-        }      
+                PlayerReposition();
+        }   
+    }
+
+    void PlayerReposition()
+    {
+        player.transform.position = new Vector3(-8, 1, -1);
+        player.VelocityZero();
     }
 }
