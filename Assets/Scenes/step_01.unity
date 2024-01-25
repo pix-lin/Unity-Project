@@ -2091,7 +2091,16 @@ MonoBehaviour:
   stageIndex: 0
   health: 3
   player: {fileID: 726731707}
-  Stages: []
+  Stages:
+  - {fileID: 355500168}
+  - {fileID: 1257449819}
+  - {fileID: 1887073250}
+  UIhealth:
+  - {fileID: 552144431}
+  - {fileID: 1973131905}
+  - {fileID: 49899792}
+  UIPoint: {fileID: 0}
+  UIStage: {fileID: 0}
 --- !u!4 &356811407
 Transform:
   m_ObjectHideFlags: 0

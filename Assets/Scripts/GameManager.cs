@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class GameManager : MonoBehaviour
     public int health;
     public PlayerMove player;
     public GameObject[] Stages;
+
+    public Image[] UIhealth;
+    public Text UIPoint;
+    public Text UIStage;
 
     public void NextStage()
     {
