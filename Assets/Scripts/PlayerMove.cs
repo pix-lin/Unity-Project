@@ -6,6 +6,7 @@ public class Move : MonoBehaviour
 {
     public float maxSpeed;
     public float jumpPower;
+    public GameManager gameManager;
     //private bool isJumping = false;
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
@@ -88,10 +89,38 @@ public class Move : MonoBehaviour
             
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            //Point
+            bool isBronze = collision.gameObject.name.Contains("Coin1");
+            bool isSilver = collision.gameObject.name.Contains("Coin2");
+            bool isGold = collision.gameObject.name.Contains("Coin3");
+            
+            if(isBronze)
+                gameManager.stagePoint += 50;
+            if (isSilver)
+                gameManager.stagePoint += 70;
+            if (isGold)
+                gameManager.stagePoint += 90;
+
+            //Deactive Item
+            collision.gameObject.SetActive(false);
+        }
+
+        else if (collision.gameObject.tag == "Finish")
+        {
+            //Next Stage
+
+        }
+            
+    }
+
     void OnAttack(Transform enemy)
     {
         //Point
-
+        gameManager.stagePoint += 100;
         //Reaction Force
         rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
 
