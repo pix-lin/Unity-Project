@@ -7,7 +7,7 @@ public class EnemyMove : MonoBehaviour
 {
     Rigidbody2D rigid;
     Animator anime;
-    SpriteRenderer sprite;
+    SpriteRenderer spriteRenderer;
     CapsuleCollider2D capsuleCollider;
     public int NextMove;
     float NextThinkTime;
@@ -16,7 +16,7 @@ public class EnemyMove : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anime = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         NextThinkTime = Random.Range(2.0f, 5.0f);
 
@@ -36,7 +36,7 @@ public class EnemyMove : MonoBehaviour
         if (rayHit.collider == null) //낭떠러지를 만났을 때(앞에 Platform 오브젝트가 없을때)
         {
             NextMove = NextMove * -1;
-            sprite.flipX = NextMove == 1;
+            spriteRenderer.flipX = NextMove == 1;
 
             CancelInvoke();
             Invoke("Think", NextThinkTime);
@@ -48,9 +48,9 @@ public class EnemyMove : MonoBehaviour
     public void OnMonsterDamaged()
     {
         //Sprite Alpha
-        sprite.color = new Color(1, 1, 1, 0.4f);
+        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
         //Sprite Flip Y
-        sprite.flipY = true;
+        spriteRenderer.flipY = true;
         //Collider Disable
         capsuleCollider.enabled = false;
         //Die Effect Jump
@@ -75,7 +75,7 @@ public class EnemyMove : MonoBehaviour
 
         //Flip Sprite
         if (NextMove != 0)
-            sprite.flipX = NextMove == 1;
+            spriteRenderer.flipX = NextMove == 1;
 
         //재귀함수 : 맨 마지막에 작성
         Invoke("Think", NextThinkTime);

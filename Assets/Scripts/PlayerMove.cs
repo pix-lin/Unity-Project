@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
-public class Move : MonoBehaviour
+public class PlayerMove : MonoBehaviour
 {
     public float maxSpeed;
     public float jumpPower;
     public GameManager gameManager;
     //private bool isJumping = false;
+    CapsuleCollider2D capsuleCollider;
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator anime;
@@ -17,6 +19,7 @@ public class Move : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anime = GetComponent<Animator>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
     private void FixedUpdate()
@@ -112,7 +115,7 @@ public class Move : MonoBehaviour
         else if (collision.gameObject.tag == "Finish")
         {
             //Next Stage
-
+            gameManager.NextStage();
         }
             
     }
@@ -131,6 +134,9 @@ public class Move : MonoBehaviour
 
     void OnPlayerDamaged(Vector2 targetPossition)
     {
+        //Health Down
+        gameManager.HealthDown();
+
         //Change Layer (Imortal Active)
         gameObject.layer = 12;
 
@@ -151,4 +157,17 @@ public class Move : MonoBehaviour
         gameObject.layer = 11;
         spriteRenderer.material.color = new Color(1, 1, 1, 1);
     }
+
+    public void OnDie()
+    {
+        //Sprite Alpha
+        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+        //Sprite Flip Y
+        spriteRenderer.flipY = true;
+        //Collider Disable
+        capsuleCollider.enabled = false;
+        //Die Effect Jump
+        rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+    }
+
 }
