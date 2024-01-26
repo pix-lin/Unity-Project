@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,12 @@ public class GameManager : MonoBehaviour
     public Image[] UIhealth;
     public TextMeshProUGUI UIPoint;
     public TextMeshProUGUI UIStage;
+    public GameObject UIRestart;
+
+    private void Update()
+    {
+        UIPoint.text = "Score: " + (totalPoint + stagePoint).ToString();
+    }
 
     public void NextStage()
     {
@@ -27,12 +34,19 @@ public class GameManager : MonoBehaviour
             stageIndex++;
             Stages[stageIndex].SetActive(true);
             PlayerReposition();
+
+            UIStage.text = "Stage " + (stageIndex + 1).ToString();
         }
         //Game Clear
         else
         {
             //Player Control Lock
             Time.timeScale = 0;
+
+            //Button UI Active
+            UIRestart.SetActive(true);
+            TextMeshProUGUI UIReStartText = UIRestart.GetComponentInChildren<TextMeshProUGUI>();
+            UIReStartText.enabled = true;
         }
         
         totalPoint += stagePoint;
@@ -42,16 +56,22 @@ public class GameManager : MonoBehaviour
     public void HealthDown()
     {
         if (health > 1)
+        {
             health--;
+            UIhealth[health].color = new Color(1, 0, 0, 0.2f);
+        }
+            
         else
         {
+            UIhealth[0].color = new Color(1, 0, 0, 0.2f);
             //Player Die Effect
             player.OnDie();
 
             //Result UI
 
-            //Retry Button UI
 
+            //Retry Button UI
+            Invoke("Retry", 1);
         }
     }
 
@@ -63,7 +83,7 @@ public class GameManager : MonoBehaviour
             HealthDown();
 
             //Player Reposition
-            if (health > 1)
+            if (health > 0)
                 PlayerReposition();
         }   
     }
@@ -72,5 +92,17 @@ public class GameManager : MonoBehaviour
     {
         player.transform.position = new Vector3(-8, 1, -1);
         player.VelocityZero();
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
+
+    public void Retry()
+    {
+        Time.timeScale = 0;
+        UIRestart.SetActive(true);
     }
 }
