@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
             Stages[stageIndex].SetActive(false);
             stageIndex++;
             Stages[stageIndex].SetActive(true);
-            PlayerReposition();
+            PlayerRespawn();
 
             UIStage.text = "Stage " + (stageIndex + 1).ToString();
         }
@@ -88,6 +88,21 @@ public class GameManager : MonoBehaviour
             if (health > 0)
                 PlayerReposition();
         }   
+    }
+
+    public void PlayerRespawn()
+    {
+        if (Stages[0].active == true)
+        {
+            player.transform.position = new Vector2(-8, 2);
+        }
+        else if (Stages[1].active == true)
+        {
+            player.transform.position = new Vector2(-7.5f, 8);
+        }
+        else
+            player.transform.position = new Vector2(-9.5f, 2);
+        
     }
 
     void PlayerReposition()
