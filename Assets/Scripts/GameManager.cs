@@ -59,12 +59,14 @@ public class GameManager : MonoBehaviour
         {
             health--;
             UIhealth[health].color = new Color(1, 0, 0, 0.2f);
+
         }
             
         else
         {
             UIhealth[0].color = new Color(1, 0, 0, 0.2f);
             //Player Die Effect
+            health = 0;
             player.OnDie();
 
             //Result UI
@@ -90,7 +92,8 @@ public class GameManager : MonoBehaviour
 
     void PlayerReposition()
     {
-        player.transform.position = new Vector3(-8, 1, -1);
+        //player.transform.position = new Vector3(-8, 1, -1);
+        player.transform.position = player.respawnPosition;
         player.VelocityZero();
     }
 

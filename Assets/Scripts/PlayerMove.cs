@@ -14,12 +14,16 @@ public class PlayerMove : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator anime;
 
+    public Vector2 respawnPosition;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anime = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
+
+        respawnPosition = transform.position;
     }
 
     private void FixedUpdate()
@@ -34,22 +38,24 @@ public class PlayerMove : MonoBehaviour
         else if (rigid.velocity.x < maxSpeed * (-1)) //left max speed
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
 
+        Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
+
         //Landing Platform
         if (rigid.velocity.y < 0)
         {
-            Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
-
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
             if (rayHit.collider != null)
             {
                 if (rayHit.distance < 0.5f)
                 {
                     anime.SetBool("IsJump", false);
+                    respawnPosition = rayHit.point;
                     //isJumping = false;
                 }
                 
             }
         }
+
     }
 
     private void Update()
