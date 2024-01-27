@@ -23,8 +23,12 @@ public class PlayerMove : MonoBehaviour
         anime = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
 
-        transform.position = new Vector2(-8, 2);
         respawnPosition = transform.position;
+    }
+
+    private void Start()
+    {
+        transform.position = new Vector2(-8, 2);
     }
 
     private void FixedUpdate()

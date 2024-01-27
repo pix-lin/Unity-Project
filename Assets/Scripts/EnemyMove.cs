@@ -23,6 +23,12 @@ public class EnemyMove : MonoBehaviour
         Invoke("Think", NextThinkTime);
     }
 
+    private void Start()
+    {
+        //Set Next Active
+        NextMove = Random.Range(-1, 2);
+    }
+
     void FixedUpdate()
     {
         //Move
@@ -31,17 +37,33 @@ public class EnemyMove : MonoBehaviour
         //Platform Check
         Vector2 frontVec = new Vector2(rigid.position.x + NextMove * 0.5f, rigid.position.y);
         Debug.DrawRay(frontVec, Vector3.down, new Color(0, 1, 0));
-        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Platform"));
+        RaycastHit2D rayHitDown = Physics2D.Raycast(frontVec, Vector3.down, 1, LayerMask.GetMask("Platform"));
         
-        if (rayHit.collider == null) //낭떠러지를 만났을 때(앞에 Platform 오브젝트가 없을때)
+        Vector2 toFrontVec = new Vector2(NextMove, 0);
+        Debug.DrawRay(rigid.position, toFrontVec, new Color(1, 0, 0));
+        RaycastHit2D rayHitFront = Physics2D.Raycast(rigid.position, toFrontVec, 1, LayerMask.GetMask("Platform"));
+        if (rayHitDown.collider == null) //낭떠러지를 만났을 때(앞에 Platform 오브젝트가 없을때)
         {
             NextMove = NextMove * -1;
             spriteRenderer.flipX = NextMove == 1;
 
             CancelInvoke();
             Invoke("Think", NextThinkTime);
-
         }
+
+        if (rayHitFront.collider != null)
+        {
+            if (rayHitFront.distance < 0.55f)
+            {
+                //Debug.Log(rayHitFront.distance);
+                NextMove = NextMove * -1;
+                spriteRenderer.flipX = NextMove == 1;
+
+                CancelInvoke();
+                Invoke("Think", NextThinkTime);
+            }
+        }
+            
     }
 
     //Monster Die
@@ -67,9 +89,7 @@ public class EnemyMove : MonoBehaviour
     //재귀 함수(Recursive)
     void Think()
     {
-        //Set Next Active
         NextMove = Random.Range(-1, 2);
-
         //Sprite Animation
         anime.SetInteger("WalkSpeed", NextMove);
 
