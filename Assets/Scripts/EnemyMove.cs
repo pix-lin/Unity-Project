@@ -8,7 +8,7 @@ public class EnemyMove : MonoBehaviour
     Rigidbody2D rigid;
     Animator anime;
     SpriteRenderer spriteRenderer;
-    CapsuleCollider2D capsuleCollider;
+    CircleCollider2D CircleCollider;
     public int NextMove;
     float NextThinkTime;
 
@@ -17,7 +17,7 @@ public class EnemyMove : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         anime = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        capsuleCollider = GetComponent<CapsuleCollider2D>();
+        CircleCollider = GetComponent<CircleCollider2D>();
         NextThinkTime = Random.Range(2.0f, 5.0f);
 
         Invoke("Think", NextThinkTime);
@@ -74,7 +74,7 @@ public class EnemyMove : MonoBehaviour
         //Sprite Flip Y
         spriteRenderer.flipY = true;
         //Collider Disable
-        capsuleCollider.enabled = false;
+        CircleCollider.enabled = false;
         //Die Effect Jump
         rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
         //Destroy

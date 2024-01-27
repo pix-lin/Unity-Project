@@ -115,7 +115,11 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+
+        if (SceneManager.GetActiveScene().name == "Start")
+            SceneManager.LoadScene("End");
+        else if (SceneManager.GetActiveScene().name == "End")
+            SceneManager.LoadScene("Start");
     }
 
     public void Retry()
@@ -123,4 +127,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         UIRestart.SetActive(true);
     }
+
+
 }

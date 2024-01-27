@@ -23,11 +23,11 @@ public class PlayerMove : MonoBehaviour
         anime = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
 
-        respawnPosition = transform.position;
     }
 
     private void Start()
     {
+        respawnPosition = transform.position;
         transform.position = new Vector2(-8, 2);
     }
 
@@ -54,7 +54,8 @@ public class PlayerMove : MonoBehaviour
                 if (rayHit.distance < 0.5f)
                 {
                     anime.SetBool("IsJump", false);
-                    respawnPosition = rayHit.point;
+                    respawnPosition = new Vector2(rayHit.point.x, rayHit.point.y + 0.75f); 
+                    Debug.Log(respawnPosition);
                     //isJumping = false;
                 }
                 
