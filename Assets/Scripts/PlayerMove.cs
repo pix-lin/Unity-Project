@@ -101,6 +101,9 @@ public class PlayerMove : MonoBehaviour
             else
                 OnPlayerDamaged(collision.transform.position);
         }
+
+        else if (collision.gameObject.tag == "Spikes")
+            OnPlayerDamaged(collision.transform.position);
             
     }
 
