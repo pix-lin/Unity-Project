@@ -245,5 +245,6 @@ public class PlayerMove : MonoBehaviour
         }
 
         audioSource.Play();
+        Debug.Log("Sound" + audioSource.isPlaying);
     }
 }
