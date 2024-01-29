@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         else
         {
             //Player Control Lock
-            Time.timeScale = 0;
+            TimeStop();
 
             //Button UI Active
             UIRestart.SetActive(true);
@@ -124,9 +124,13 @@ public class GameManager : MonoBehaviour
 
     public void Retry()
     {
-        Time.timeScale = 0;
+        Invoke("TimeStop", 1.5f);
         UIRestart.SetActive(true);
     }
 
+    void TimeStop()
+    {
+        Time.timeScale = 0;
+    }
 
 }

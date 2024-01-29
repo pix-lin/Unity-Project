@@ -1982,7 +1982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &355500169
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3195,6 +3195,7 @@ MonoBehaviour:
   maxSpeed: 4.5
   jumpPower: 20
   gameManager: {fileID: 356811406}
+  anime: {fileID: 0}
   respawnPosition: {x: 0, y: 0}
 --- !u!70 &726731708
 CapsuleCollider2D:
@@ -6785,7 +6786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1887073251
 SpriteRenderer:
   m_ObjectHideFlags: 0

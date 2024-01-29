@@ -12,7 +12,7 @@ public class PlayerMove : MonoBehaviour
     CapsuleCollider2D capsuleCollider;
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
-    Animator anime;
+    public Animator anime;
 
     public Vector2 respawnPosition;
 
@@ -175,6 +175,10 @@ public class PlayerMove : MonoBehaviour
 
     public void OnDie()
     {
+        anime.SetBool("IsWalk", false);
+        anime.SetBool("IsJump", false);
+        anime.SetBool("IsDie", true);
+
         //Sprite Alpha
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);
         //Sprite Flip Y
