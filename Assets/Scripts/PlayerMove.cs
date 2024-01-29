@@ -64,7 +64,7 @@ public class PlayerMove : MonoBehaviour
                 {
                     anime.SetBool("IsJump", false);
                     respawnPosition = new Vector2(rayHit.point.x, rayHit.point.y + 0.75f); 
-                    Debug.Log(respawnPosition);
+                    //Debug.Log(respawnPosition);
                     //isJumping = false;
                 }
                 
@@ -225,7 +225,6 @@ public class PlayerMove : MonoBehaviour
         {
             case "Jump":
                 audioSource.clip = audioJump;
-                Debug.Log("Jump Sound");
                 break;
             case "Attack":
                 audioSource.clip = audioAttack;
@@ -245,6 +244,6 @@ public class PlayerMove : MonoBehaviour
         }
 
         audioSource.Play();
-        Debug.Log("Sound" + audioSource.isPlaying);
+        //Debug.Log("Sound" + audioSource.isPlaying);
     }
 }
