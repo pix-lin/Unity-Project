@@ -225,6 +225,7 @@ public class PlayerMove : MonoBehaviour
         {
             case "Jump":
                 audioSource.clip = audioJump;
+                Debug.Log("Jump Sound");
                 break;
             case "Attack":
                 audioSource.clip = audioAttack;
@@ -242,5 +243,7 @@ public class PlayerMove : MonoBehaviour
                 audioSource.clip = audioFinish;
                 break;
         }
+
+        audioSource.Play();
     }
 }
