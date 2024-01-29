@@ -69,6 +69,8 @@ public class EnemyMove : MonoBehaviour
     //Monster Die
     public void OnMonsterDamaged()
     {
+        anime.SetBool("MonsterDie", true);
+
         //Sprite Alpha
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);
         //Sprite Flip Y
