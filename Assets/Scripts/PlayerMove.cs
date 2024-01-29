@@ -5,6 +5,13 @@ using UnityEngine.U2D;
 
 public class PlayerMove : MonoBehaviour
 {
+    public AudioClip audioJump;
+    public AudioClip audioAttack;
+    public AudioClip audioDamaged;
+    public AudioClip audioItem;
+    public AudioClip audioDie;
+    public AudioClip audioFinish;
+
     public float maxSpeed;
     public float jumpPower;
     public GameManager gameManager;
@@ -12,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     CapsuleCollider2D capsuleCollider;
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
+    AudioSource audioSource;
     public Animator anime;
 
     public Vector2 respawnPosition;
@@ -22,6 +30,7 @@ public class PlayerMove : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anime = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
+        audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -72,6 +81,7 @@ public class PlayerMove : MonoBehaviour
             anime.SetBool("IsJump", true);
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             //isJumping = true;
+            PlaySound("Jump");
         }
 
         //Stop Speed
@@ -95,15 +105,26 @@ public class PlayerMove : MonoBehaviour
         {
             //Attack
             if (rigid.velocity.y < 0 && transform.position.y > collision.transform.position.y)
+            {
                 OnAttack(collision.transform);
+                PlaySound("Attack");
+            }
 
             //Damaged
             else
+            {
                 OnPlayerDamaged(collision.transform.position);
+                PlaySound("Damaged");
+            }
+                
         }
 
         else if (collision.gameObject.tag == "Spikes")
+        {
             OnPlayerDamaged(collision.transform.position);
+            PlaySound("Damaged");
+        }
+            
             
     }
 
@@ -111,6 +132,8 @@ public class PlayerMove : MonoBehaviour
     {
         if (collision.gameObject.tag == "Item")
         {
+            PlaySound("Item");
+
             //Point
             bool isBronze = collision.gameObject.name.Contains("Coin1");
             bool isSilver = collision.gameObject.name.Contains("Coin2");
@@ -130,7 +153,9 @@ public class PlayerMove : MonoBehaviour
         else if (collision.gameObject.tag == "Finish")
         {
             //Next Stage
+            PlaySound("Finish");
             gameManager.NextStage();
+
         }
             
     }
@@ -192,5 +217,30 @@ public class PlayerMove : MonoBehaviour
     public void VelocityZero()
     {
         rigid.velocity = Vector2.zero;
+    }
+
+    public void PlaySound(string action)
+    {
+        switch (action)
+        {
+            case "Jump":
+                audioSource.clip = audioJump;
+                break;
+            case "Attack":
+                audioSource.clip = audioAttack;
+                break;
+            case "Damaged":
+                audioSource.clip = audioDamaged;
+                break;
+            case "Item":
+                audioSource.clip = audioItem;
+                break;
+            case "Die":
+                audioSource.clip = audioDie;
+                break;
+            case "Finish":
+                audioSource.clip = audioFinish;
+                break;
+        }
     }
 }

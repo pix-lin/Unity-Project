@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
             //Player Die Effect
             health = 0;
             player.OnDie();
+            player.PlaySound("Die");
 
             //Result UI
 
